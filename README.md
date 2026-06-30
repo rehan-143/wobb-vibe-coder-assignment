@@ -1,5 +1,7 @@
 # Wobb Vibe Coder Assignment
 
+**Live demo:** https://vibe-coder-assignment-five.vercel.app
+
 An influencer search application built with React, TypeScript, Vite, Tailwind CSS, and Zustand.
 
 ## Getting Started
@@ -13,6 +15,8 @@ Open http://localhost:5173
 
 > Note: `--legacy-peer-deps` is required because `react-beautiful-dnd` has a peer dependency on React 16-18, while this project uses React 19. The package itself wasn't used in the final solution and could be safely removed in a follow-up.
 
+> For Vercel deployment, a `vercel.json` was added to ensure the install command also uses `--legacy-peer-deps`, since Vercel's build environment otherwise fails on the same peer dependency conflict.
+
 ## What I Changed
 
 ### Bug Fixes
@@ -22,6 +26,7 @@ Open http://localhost:5173
 - Added missing `alt` text to profile images for accessibility
 - Removed leftover debug code (a `data-search` DOM attribute, an unused click-counter with a stale-closure console.log)
 - Added `rel="noopener noreferrer"` to external links using `target="_blank"`
+- Removed unused `SearchBar.tsx` component (dead code left over from the starter; the search input was already implemented separately inside `PlatformFilter.tsx`)
 
 ### State Management
 - The starter project did not contain an actual React Context implementation for the selected-list feature (despite the brief referencing replacing one) — instead, I built the state management for the "Add to List" feature from scratch directly with Zustand
