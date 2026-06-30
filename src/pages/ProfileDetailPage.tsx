@@ -3,14 +3,8 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import type { FullUserProfile, ProfileDetailResponse } from "@/types";
-import { formatEngagementRate } from "@/utils/formatters";
+import { formatFollowers, formatEngagementRate } from "@/utils/formatters";
 import { loadProfileByUsername } from "@/utils/profileLoader";
-
-function formatFollowersDetail(count: number) {
-  if (count >= 1000000) return (count / 1000000).toFixed(2) + "M";
-  if (count >= 1000) return (count / 1000).toFixed(1) + "K";
-  return String(count);
-}
 
 export function ProfileDetailPage() {
   const { username } = useParams<{ username: string }>();
@@ -71,6 +65,7 @@ export function ProfileDetailPage() {
       <div className="flex gap-6 items-start text-left max-w-2xl mx-auto">
         <img
           src={user.picture}
+          alt={user.fullname}
           className="w-24 h-24 rounded-full border"
         />
         <div className="flex-1">
@@ -89,15 +84,13 @@ export function ProfileDetailPage() {
             <div className="border p-2 rounded">
               <div className="text-gray-500">Followers</div>
               <div className="font-semibold">
-                {formatFollowersDetail(user.followers)}
+                {formatFollowers(user.followers)}
               </div>
             </div>
             <div className="border p-2 rounded">
               <div className="text-gray-500">Engagement Rate</div>
               <div className="font-semibold">
-                {user.engagement_rate !== undefined
-                  ? (user.engagement_rate * 10000).toFixed(2) + "%"
-                  : "N/A"}
+                {formatEngagementRate(user.engagement_rate)}
               </div>
             </div>
             {user.posts_count !== undefined && (
@@ -110,7 +103,7 @@ export function ProfileDetailPage() {
               <div className="border p-2 rounded">
                 <div className="text-gray-500">Avg Likes</div>
                 <div className="font-semibold">
-                  {formatFollowersDetail(user.avg_likes)}
+                  {formatFollowers(user.avg_likes)}
                 </div>
               </div>
             )}
@@ -124,16 +117,14 @@ export function ProfileDetailPage() {
               <div className="border p-2 rounded">
                 <div className="text-gray-500">Avg Views</div>
                 <div className="font-semibold">
-                  {formatFollowersDetail(user.avg_views)}
+                  {formatFollowers(user.avg_views)}
                 </div>
               </div>
             )}
             {user.engagements !== undefined && (
               <div className="border p-2 rounded">
                 <div className="text-gray-500">Engagements</div>
-                <div className="font-semibold">
-                  {formatEngagementRate(user.engagement_rate)}
-                </div>
+                <div className="font-semibold">{user.engagements}</div>
               </div>
             )}
           </div>
@@ -142,14 +133,14 @@ export function ProfileDetailPage() {
             <a
               href={user.url}
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-block mt-4 text-blue-600 text-sm"
             >
               View on platform →
             </a>
           )}
 
-          {/* TODO: candidates must implement Add to List feature */}
-          {/* TODO: candidates must implement Add to List feature */}
+          {/* TODO: Add to List feature will be implemented via Zustand store */}
           <button
             disabled
             className="block mt-4 px-4 py-2 bg-gray-300 text-gray-500 rounded cursor-not-allowed"
