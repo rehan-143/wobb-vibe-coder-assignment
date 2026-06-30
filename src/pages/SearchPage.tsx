@@ -15,36 +15,37 @@ export function SearchPage() {
     [allProfiles, searchQuery]
   );
 
- const handleProfileClick = () => {
-    // profile click tracking removed; navigation handled in ProfileCard
+  const handleProfileClick = () => {
+    // navigation handled inside ProfileCard
   };
 
   return (
     <Layout title="Find Influencers">
-      <p className="text-gray-500 mb-4 text-sm">
-        Browse top creators across social platforms
-      </p>
+      <div className="flex flex-col items-center w-full">
+        <p className="text-gray-500 mb-6 text-sm max-w-2xl w-full">
+          Browse top creators across social platforms
+        </p>
 
-      <PlatformFilter
-        selected={platform}
-        onChange={(p) => {
-          setPlatform(p);
-          setSearchQuery("");
-        }}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-      />
+        <PlatformFilter
+          selected={platform}
+          onChange={(p) => {
+            setPlatform(p);
+            setSearchQuery("");
+          }}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
 
-      <p className="text-xs text-gray-400 mb-2">
-        Showing {filtered.length} of {allProfiles.length} on {platform}
-      </p>
+        <p className="text-xs text-gray-400 mb-3 max-w-2xl w-full">
+          Showing {filtered.length} of {allProfiles.length} on {platform}
+        </p>
 
-      <ProfileList
-        profiles={filtered}
-        platform={platform}
-        searchQuery={searchQuery}
-        onProfileClick={handleProfileClick}
-      />
+        <ProfileList
+          profiles={filtered}
+          platform={platform}
+          onProfileClick={handleProfileClick}
+        />
+      </div>
     </Layout>
   );
 }

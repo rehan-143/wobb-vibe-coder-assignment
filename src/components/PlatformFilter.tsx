@@ -15,15 +15,17 @@ export function PlatformFilter({
   onSearchChange,
 }: PlatformFilterProps) {
   return (
-    <div className="mb-4">
-      <div className="flex gap-2 justify-center mb-3">
+    <div className="mb-6 w-full max-w-2xl">
+      <div className="flex gap-2 mb-4">
         {PLATFORMS.map((p) => (
           <button
             key={p}
             type="button"
             onClick={() => onChange(p)}
-            className={`px-4 py-2 border rounded ${
-              selected === p ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              selected === p
+                ? "bg-gray-900 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
             {getPlatformLabel(p)}
@@ -35,7 +37,8 @@ export function PlatformFilter({
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder="Search by username or name..."
-        className="w-full max-w-md border px-3 py-2 rounded"
+        aria-label="Search profiles"
+        className="w-full border border-gray-300 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
       />
     </div>
   );
